@@ -1,5 +1,72 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+    .nav.navbar.navbar-fixed-top
+        .container.navigation
+            .row.top
+                img.img-responsive(src="images/dc_roasters_200x124_lt.png")
+                div.login
+                    if(!user)
+                        a(href="/login") 
+                            button.btn.btn-primary.login Login
+                        a(href="/register") 
+                            button.btn.btn-default Register
+                    if(user)
+                        p Congrats! You are logged in as #{user.username}
+                        a(href="/logout")
+                            button.btn.btn-danger Logout
+            .row.bottom
+                ul.nav.navbar-nav
+                    li
+                        span.sprite#welcome
+                        a(href="#" class="welcome-link") 1. Welcome
+                    li
+                        span.sprite#options
+                        a(href="/choices" class="options-link") 2. Options
+                    li
+                        span.sprite#delivery
+                        a(href="#" class="delivery-link") 3. Delivery
+                    li
+                        span.sprite#payment
+                        a(href="#" class="payment-link") 4. Payment
+    section#main
+        h1 A better way to grind
+        h3 Freshly roasted coffee beans delivered <br>weekly to your door.
+    section#source
+        div#source-description
+            h2  We source coffee beans from all around the world and roast them fresh daily.
+            p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    section#how-it-works-one
+        div.howitworksheadline.text-center
+            h1 HOW IT WORKS
+        div.howitworks
+            img(src="../images/canvas_corner.png")
+            h2 1. We get the coffee
+            p lorem ipsum is simply
+            p lorem ipsum is simply
+            p lorem ipsum is simply
+    section#how-it-works-two
+        div.howitworks
+            img(src="../images/grower.jpg" id="grower")
+            h2 2. We pick up the coffee
+            p Lorem ipsum is simply
+            p Lorem ipsum is simply
+            p Lorem ipsum is simply
+            img(src="../images/CoffeeBags_corner.png" id="bag-corner")
+    section#how-it-works-three
+        div.howitworks
+            img(src="../images/canvas_corner.png")
+            h2 3. You drink the coffee
+            p Lorem ipsum is simply
+            p Lorem ipsum is simply
+            p Lorem ipsum is simply
+    section#get-started
+        div.get-started
+            div.arrow-down
+            button.btn.btn-success.btn-lg Get Started
+ extends footer   

@@ -1,0 +1,60 @@
+extends layout
+
+block content
+
+	#choices.container
+		#plan-wrapper
+			#choices-header Tell us what you want.
+			#choices-sub-header Shipping is free and you can skip any week.
+			form(name="choices-form", action="/choices", method="post")
+				#choices-frequency.choices-block
+					.row
+						.choices-image.col-sm-6
+							img(src="/images/calendar.png")
+						.choices-text.col-sm-6
+							h2.choices-label 1. Frequency
+							.choices-lower-text-wrapper
+								.choices-lower-text How often would you like us to send you your coffee?
+								select(id="frequency", name="frequency", class="form-control")
+									option(value="weekly", selected=(frequency == 'weekly')) Weekly
+									option(value="biweekly",selected=(frequency == 'biweekly')) Every two weeks
+									option(value="monthly",selected=(frequency == 'monthly')) Monthly
+									option(value="quarterly",selected=(frequency == 'quarterly')) Quarterly
+									option(value="semiannual",selected=(frequency == 'semiannual')) Semi-Annually
+									option(value="annual",selected=(frequency == 'annual')) Annually
+								.choices-help-text You can cancel anytime.  You can skip anytime.
+				#choices-quantity.choices-block
+					.row
+						.choices-image.col-sm-6
+							img(src="/images/food-scale.png")
+						.choices-text.col-sm-6
+							h2.choices-label 2. Quantity
+							.choices-lower-text-wrapper
+								.choices-lower-text How many pounds (in increments of .25 lbs) would you like?
+								input(type="number", step=.25, min=0, name="quarterPounds", placeholder="#{quarterPounds}")
+								.choices-help-text You can cancel anytime.  You can skip anytime.
+				#choices-grind.choices-block
+					.row
+						.choices-image.col-sm-6
+							img(src="/images/beans.png")
+						.choices-text.col-sm-6
+							h2.choices-label 1. Frequency
+							.choices-lower-text-wrapper
+								.choices-lower-text How do you like your grinds?
+								select(id="grind", name="grind", class="form-control")
+									option(value="extraCourse", selected=(grind=='extraCourse')) Extra Course
+									option(value="course" ,selected=(grind =='course')) Course
+									option(value="mediumCourse" ,selected=(grind=='mediumCourse')) Medium Course
+									option(value="fine" ,selected=(grind)=='fine')) Fine
+									option(value="veryFine", selected=(grind=='veryFine')) Very Fine
+								.choices-help-text You can cancel anytime.  You can skip anytime.
+				input.btn.btn-primary.btn-lg(type="submit",name="submit")
+
+
+
+
+
+
+
+
+
