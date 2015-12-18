@@ -7,9 +7,12 @@ block content
         br
         form#login-form(role='form', action='/register', method='post')    
             .form-group
-                input.form-control(type='text', name='username', placeholder='Enter Your Username')
+                input.form-control(type='text',minlength="4" name='username', placeholder='Enter Your Username')
             .form-group
                 input.form-control(type='password', name='password', placeholder='Enter Your Password')
+            .form-group
+                input.form-control(type='password', name='password2', placeholder='Confirm Your Password')
+                |#{nomatch}
             button.btn.btn-primary(type='submit') Submit
             a(href='/')
                 button.btn.btn-danger(type='button') Cancel

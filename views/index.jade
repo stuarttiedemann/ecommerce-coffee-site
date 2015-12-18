@@ -6,29 +6,29 @@ block content
             .row.top
                 img.img-responsive(src="images/dc_roasters_200x124_lt.png")
                 div.login
-                    if(!user)
+                    if(!username)
                         a(href="/login") 
                             button.btn.btn-primary.login Login
                         a(href="/register") 
                             button.btn.btn-default Register
-                    if(user)
-                        p Congrats! You are logged in as #{user.username}
+                    if(username)
+                        a(href="/account") Welcome! #{username}
                         a(href="/logout")
                             button.btn.btn-danger Logout
             .row.bottom
                 ul.nav.navbar-nav
-                    li
-                        span.sprite#welcome
-                        a(href="#" class="welcome-link") 1. Welcome
+                    li.left
+                        span.sprite.active#welcome
+                        a(href="/" class="welcome-link active") 1. Welcome
                     li
                         span.sprite#options
                         a(href="/choices" class="options-link") 2. Options
                     li
                         span.sprite#delivery
-                        a(href="#" class="delivery-link") 3. Delivery
-                    li
+                        a(href="/delivery" class="delivery-link") 3. Delivery
+                    li.right
                         span.sprite#payment
-                        a(href="#" class="payment-link") 4. Payment
+                        a(href="/payment" class="payment-link") 4. Payment
     section#main
         h1 A better way to grind
         h3 Freshly roasted coffee beans delivered <br>weekly to your door.

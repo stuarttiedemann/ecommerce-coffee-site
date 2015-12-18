@@ -1,0 +1,66 @@
+extends layout
+
+block content
+    .nav.navbar.navbar-fixed-top
+        .container.navigation
+            .row.top
+                img.img-responsive(src="images/dc_roasters_200x124_lt.png")
+                div.login
+                    if(!username)
+                        a(href="/login") 
+                            button.btn.btn-primary.login Login
+                        a(href="/register") 
+                            button.btn.btn-default Register
+                    if(username)
+                        a(href="/account") Welcome! #{username}
+                        a(href="/logout")
+                            button.btn.btn-danger Logout
+            .row.bottom
+                ul.nav.navbar-nav
+                    li
+                        span.sprite#welcome
+                        a(href="/" class="welcome-link") 1. Welcome
+                    li
+                        span.sprite#options
+                        a(href="/choices" class="options-link") 2. Options
+                    li
+                        span.sprite#delivery
+                        a(href="/delivery" class="delivery-link") 3. Delivery
+                    li
+                        span.sprite.active#payment
+                        a(href="/payment" class="payment-link active") 4. Payment
+    .page-wrapper
+        h2 Your account information
+        .container
+            .row
+                .col-xs-8
+                    h2 Choices
+                        a(href="/choices") (Edit)
+                    .row
+                        .col-xs-5
+                            p Grind: 
+                            p Frequency Of Delivery: 
+                            p Coffee, In Pounds: 
+                        .col-xs-3
+                            p #{grind}
+                            p #{frequency}
+                            p #{quarterPounds}
+                    h2 Delivery Information
+                        a(href="/delivery") (Edit)
+                    .row
+                        .col-xs-5
+                            p Full Name: 
+                            p Address: 
+                            p Address2: 
+                            p City: 
+                            p State: 
+                            P Zip: 
+                        .col-xs-3
+                            p #{name}
+                            p #{address1}
+                            p #{address2}
+                            p #{city}
+                            p #{state}
+                            p #{zipcode}
+            a(href="/cancel")
+                button.btn.btn-primary.btn-lg(type="submit" name="Submit") Cancel Account

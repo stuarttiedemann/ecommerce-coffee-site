@@ -1,54 +1,81 @@
 extends layout
 
 block content
-
-	#choices.container
-		#plan-wrapper
-			#choices-header Tell us what you want.
-			#choices-sub-header Shipping is free and you can skip any week.
-			form(name="choices-form", action="/choices", method="post")
-				#choices-frequency.choices-block
-					.row
-						.choices-image.col-sm-6
-							img(src="/images/calendar.png")
-						.choices-text.col-sm-6
-							h2.choices-label 1. Frequency
-							.choices-lower-text-wrapper
-								.choices-lower-text How often would you like us to send you your coffee?
-								select(id="frequency", name="frequency", class="form-control")
-									option(value="weekly", selected=(frequency == 'weekly')) Weekly
-									option(value="biweekly",selected=(frequency == 'biweekly')) Every two weeks
-									option(value="monthly",selected=(frequency == 'monthly')) Monthly
-									option(value="quarterly",selected=(frequency == 'quarterly')) Quarterly
-									option(value="semiannual",selected=(frequency == 'semiannual')) Semi-Annually
-									option(value="annual",selected=(frequency == 'annual')) Annually
-								.choices-help-text You can cancel anytime.  You can skip anytime.
-				#choices-quantity.choices-block
-					.row
-						.choices-image.col-sm-6
-							img(src="/images/food-scale.png")
-						.choices-text.col-sm-6
-							h2.choices-label 2. Quantity
-							.choices-lower-text-wrapper
-								.choices-lower-text How many pounds (in increments of .25 lbs) would you like?
-								input(type="number", step=.25, min=0, name="quarterPounds", placeholder="#{quarterPounds}")
-								.choices-help-text You can cancel anytime.  You can skip anytime.
-				#choices-grind.choices-block
-					.row
-						.choices-image.col-sm-6
-							img(src="/images/beans.png")
-						.choices-text.col-sm-6
-							h2.choices-label 1. Frequency
-							.choices-lower-text-wrapper
-								.choices-lower-text How do you like your grinds?
-								select(id="grind", name="grind", class="form-control")
-									option(value="extraCourse", selected=(grind=='extraCourse')) Extra Course
-									option(value="course" ,selected=(grind =='course')) Course
-									option(value="mediumCourse" ,selected=(grind=='mediumCourse')) Medium Course
-									option(value="fine" ,selected=(grind)=='fine')) Fine
-									option(value="veryFine", selected=(grind=='veryFine')) Very Fine
-								.choices-help-text You can cancel anytime.  You can skip anytime.
-				input.btn.btn-primary.btn-lg(type="submit",name="submit")
+    .nav.navbar.navbar-fixed-top
+        .container.navigation
+            .row.top
+                img.img-responsive(src="images/dc_roasters_200x124_lt.png")
+                div.login
+                    if(!username)
+                        a(href="/login") 
+                            button.btn.btn-primary.login Login
+                        a(href="/register") 
+                            button.btn.btn-default Register
+                    if(username)
+                        a(href="/account") Welcome! #{username}
+                        a(href="/logout")
+                            button.btn.btn-danger Logout
+            .row.bottom
+                ul.nav.navbar-nav
+                    li
+                        span.sprite#welcome
+                        a(href="/" class="welcome-link") 1. Welcome
+                    li
+                        span.sprite.active#options
+                        a(href="/choices" class="options-link active") 2. Options
+                    li
+                        span.sprite#delivery
+                        a(href="/delivery" class="delivery-link") 3. Delivery
+                    li
+                        span.sprite#payment
+                        a(href="/payment" class="payment-link") 4. Payment
+    #choices.container
+        #plan-wrapper
+            #choices-header Tell us what you want.
+            #choices-sub-header Shipping is free and you can skip any week.
+            form(name="choices-form", action="/choices", method="post")
+                #choices-frequency.choices-block
+                    .row
+                        .choices-image.col-sm-6
+                            img(src="/images/calendar.png")
+                        .choices-text.col-sm-6
+                            h2.choices-label 1. Frequency
+                            .choices-lower-text-wrapper
+                                .choices-lower-text How often would you like us to send you your coffee?
+                                select(id="frequency", name="frequency", class="form-control")
+                                    option(value="weekly", selected=(frequency == 'weekly')) Weekly
+                                    option(value="biweekly",selected=(frequency == 'biweekly')) Every two weeks
+                                    option(value="monthly",selected=(frequency == 'monthly')) Monthly
+                                    option(value="quarterly",selected=(frequency == 'quarterly')) Quarterly
+                                    option(value="semiannual",selected=(frequency == 'semiannual')) Semi-Annually
+                                    option(value="annual",selected=(frequency == 'annual')) Annually
+                                .choices-help-text You can cancel anytime.  You can skip anytime.
+                #choices-quantity.choices-block
+                    .row
+                        .choices-image.col-sm-6
+                            img(src="/images/food-scale.png")
+                        .choices-text.col-sm-6
+                            h2.choices-label 2. Quantity
+                            .choices-lower-text-wrapper
+                                .choices-lower-text Coffee is $19.99lb<br>How many pounds (in increments of .25 lbs) would you like?
+                                input(type="number", step=.25, min=0, name="quarterPounds", value="#{quarterPounds}")
+                                .choices-help-text You can cancel anytime.  You can skip anytime.
+                #choices-grind.choices-block
+                    .row
+                        .choices-image.col-sm-6
+                            img(src="/images/beans.png")
+                        .choices-text.col-sm-6
+                            h2.choices-label 3. Grind
+                            .choices-lower-text-wrapper
+                                .choices-lower-text How do you like your grinds?
+                                select(id="grind", name="grind", class="form-control")
+                                    option(value="extraCourse", selected=(grind=='extraCourse')) Extra Coarse
+                                    option(value="course" ,selected=(grind =='course')) Coarse
+                                    option(value="mediumCourse" ,selected=(grind=='mediumCourse')) Medium Coarse
+                                    option(value="fine" ,selected=(grind=='fine')) Fine
+                                    option(value="veryFine", selected=(grind=='veryFine')) Very Fine
+                                .choices-help-text You can cancel anytime.  You can skip anytime.
+                input.btn.btn-primary.btn-lg(type="submit",name="submit")
 
 
 

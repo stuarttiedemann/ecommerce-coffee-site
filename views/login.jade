@@ -1,11 +1,39 @@
 extends layout
 
 block content
-    .container
+    .nav.navbar.navbar-fixed-top
+        .container.navigation
+            .row.top
+                img.img-responsive(src="images/dc_roasters_200x124_lt.png")
+                div.login
+                    if(!username)
+                        a(href="/login") 
+                            button.btn.btn-primary.login Login
+                        a(href="/register") 
+                            button.btn.btn-default Register
+                    if(username)
+                        p Welcome! #{username}
+                        a(href="/logout")
+                            button.btn.btn-danger Logout
+            .row.bottom
+                ul.nav.navbar-nav
+                    li
+                        span.sprite#welcome
+                        a(href="#" class="welcome-link") 1. Welcome
+                    li
+                        span.sprite#options
+                        a(href="/choices" class="options-link") 2. Options
+                    li
+                        span.sprite#delivery
+                        a(href="#" class="delivery-link") 3. Delivery
+                    li
+                        span.sprite#payment
+                        a(href="#" class="payment-link") 4. Payment
+    .container.login
         h1 Login Page
         p.lead Please enter your username and password below.
         br
-        form#login-form(role='form', action='/login', method='post')    
+        form.col-xs-6#login-form(role='form', action='/login', method='post')    
             .form-group
                 input.form-control(type='text', name='username', placeholder='Enter Your Username')
             .form-group

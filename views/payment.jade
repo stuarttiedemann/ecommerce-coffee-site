@@ -1,0 +1,73 @@
+extends layout
+
+block content
+	.nav.navbar.navbar-fixed-top
+		.container.navigation
+			.row.top
+				img.img-responsive(src="images/dc_roasters_200x124_lt.png")
+				div.login
+					if(!username)
+						a(href="/login") 
+							button.btn.btn-primary.login Login
+						a(href="/register") 
+							button.btn.btn-default Register
+					if(username)
+						a(href="/account") Welcome! #{username}
+						a(href="/logout")
+							button.btn.btn-danger Logout
+			.row.bottom
+				ul.nav.navbar-nav
+					li
+						span.sprite#welcome
+						a(href="/" class="welcome-link") 1. Welcome
+					li
+						span.sprite#options
+						a(href="/choices" class="options-link") 2. Options
+					li
+						span.sprite#delivery
+						a(href="/delivery" class="delivery-link") 3. Delivery
+					li
+						span.sprite.active#payment
+						a(href="/payment" class="payment-link active") 4. Payment	
+	.page-wrapper
+		h2.headline Your Order Information
+		.container.payment-holder
+			.row
+				.col-xs-12
+					h2 Choices
+						a(href="/choices") (Edit)
+					.row
+						.col-xs-6
+							p Grind: 
+							p Frequency Of Delivery: 
+							p Coffee, In Pounds: 
+						.col-xs-6
+							p #{grind}
+							p #{frequency}
+							p #{quarterPounds}
+					h2 Delivery Information
+						a(href="/delivery") (Edit)
+					.row
+						.col-xs-6
+							p Full Name: 
+							p Address: 
+							p Address2: 
+							p City: 
+							p State: 
+							P Zip: 
+							h3 Current Order:
+							h3 Shipping:
+							h3 Total:
+						.col-xs-6
+							p #{name}
+							p #{address1}
+							p #{address2}
+							p #{city}
+							p #{state}
+							p #{zipcode}
+							h3 $ #{orderTotal}
+							h3 $7.99
+							h3 $ #{totalWithShipping}
+					form.paymentsubmit(name="payment", action="/payment", method="post")
+						script.stripe-button(src="https://checkout.stripe.com/checkout.js", data-key=(key), data-image="http://stripe.com/img/documentation/checkout/marketplace.png", data-name="Demo Site", data-description="2 widgets", data-amount=(totalWithShipping*100), data-locale="auto")
+					
