@@ -70,6 +70,9 @@ router.post('/login', function(req, res, next) {
          return res.redirect('/login?failedlogin=1');
        }
        if (user){
+       	   if(user.accessLevel == 5){
+       	   	req.session.accessLevel = "Admin";
+       	   }
            req.session.username = user.username;
            req.session.frequency = user.frequency;
            req.session.quarterPounds = user.quarterPounds;
@@ -116,7 +119,7 @@ router.get('/choices', function(req,  res, next){
 				var currFrequency = doc.frequency ? doc.frequency:undefined;
 				var quarterPounds = doc.quarterPounds ? doc.quarterPounds:undefined;
 		//Render the choices view
-		res.render('choices',{username:req.session.username, grind:currGrind,frequency:currFrequency,quarterPounds:quarterPounds});
+		res.render('choices',{username:req.session.username, grind:currGrind,frequency:currFrequency,quarterPounds:quarterPounds,accessLevel:req.session.accessLevel});
 		});
 		
 	}else{
@@ -230,11 +233,26 @@ router.get('/payment',function(req, res, next){
 				var newCity = doc.city ? doc.city:"N/A";
 				var newState = doc.state ? doc.state:"N/A";
 				var newZipCode = doc.zipcode ? doc.zipcode:"N/A";
-				var newOrderTotal = (doc.quarterPounds*19.99) 
+				var newOrderTotal = (doc.quarterPounds*19.99);
+				newOrderTotal = newOrderTotal.toFixed(2);
 				var newTotalWithShipping = (doc.quarterPounds*19.99)+7.99;
-				req.session.charge = newTotalWithShipping*100;
+				newTotalWithShipping = newTotalWithShipping.toFixed(2);
+				req.session.charge = newTotalWithShipping;
 		//Render the choices view
-		res.render('payment',{username:req.session.username, name:newName,address1:newAddress1,address2:newAddress2,city:newCity,state:newState,zipcode:newZipCode,grind:newGrind,frequency:newFrequency,quarterPounds:newQuarterPounds,orderTotal:newOrderTotal,totalWithShipping:newTotalWithShipping});
+		res.render('payment',{
+							  username:req.session.username, 
+							  name:newName,address1:newAddress1,
+							  address2:newAddress2,
+							  city:newCity,state:newState,
+							  zipcode:newZipCode,
+							  grind:newGrind,
+							  frequency:newFrequency,
+							  quarterPounds:newQuarterPounds,
+							  orderTotal:newOrderTotal,
+							  totalWithShipping:newTotalWithShipping,
+							  key:vars.key
+
+							});
 		});
 		
 	}else{
@@ -243,9 +261,7 @@ router.get('/payment',function(req, res, next){
 });
 
 router.post('/payment',function(req,res,next){
-	console.log("The req is: "+req.body);
-	console.log("The res is:"+res.body);
-	var stripe = require("stripe")("sk_test_C9x7H0CXrapVoaE3AB2ITwqP");
+	var stripe = require("stripe")(vars.privateKey);
 	stripe.charges.create({
 		amount:req.session.charge,
 		currency:"usd",
@@ -253,9 +269,15 @@ router.post('/payment',function(req,res,next){
 		description:"Charge for "+req.body.stripeEmail
 		},function(err,charge){
 	})
-	res.json(req.body);
+	res.redirect('thankyou');
 })
 
+////////////////////////////////////
+//////////// THANK YOU /////////////
+////////////////////////////////////
+router.get('/thankyou', function(req,res,next){
+	res.render('thankyou',{username:req.session.username});
+})
 ////////////////////////////////////
 /////////// Accounts //////////////
 ///////////////////////////////////
@@ -323,5 +345,17 @@ router.get('/email',function(req,res,next){
 router.get('/contact',function(req,res,next){
 	res.render('contact');
 })
+//////////////////////////////////////////
+//////////////  ADMIN ////////////////////
+//////////////////////////////////////////
 
+router.get('/admin',function(req,res,next){
+	if(req.session.accessLevel == "Admin"){
+		Account.find(), function(err,doc,next){
+			res.render('admin',{accounts:doc});
+		};
+	}else{
+		res.redirect('/');
+	}
+})
 module.exports = router;

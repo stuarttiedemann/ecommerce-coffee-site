@@ -1,0 +1,33 @@
+extends layout
+
+block content
+	.nav.navbar.navbar-fixed-top
+		.container.navigation
+			.row.top
+				img.img-responsive(src="images/dc_roasters_200x124_lt.png")
+				div.login
+					if(!username)
+						a(href="/login") 
+							button.btn.btn-primary.login Login
+						a(href="/register") 
+							button.btn.btn-default Register
+					if(username)
+						a(href="/account") Welcome! #{username}
+						a(href="/logout")
+							button.btn.btn-danger Logout
+			.row.bottom
+				ul.nav.navbar-nav
+					li
+						span.sprite#welcome
+						a(href="/" class="welcome-link") 1. Welcome
+					li
+						span.sprite#options
+						a(href="/choices" class="options-link") 2. Options
+					li
+						span.sprite#delivery
+						a(href="/delivery" class="delivery-link") 3. Delivery
+					li
+						span.sprite#payment
+						a(href="/payment" class="payment-link") 4. Payment
+	.thankyou.text-center
+		h1 Thank you for being a loyal customer.<br>  Stop back by soon!	

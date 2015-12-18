@@ -544,3 +544,16 @@ body .page-wrapper .container {
 .page-wrapper .container.payment-holder {
   padding: 20px;
 }
+
+/* line 1, ../../assets/compass/sass/views/_thankyou.scss */
+.thankyou {
+  padding-top: 180px;
+  height: 100vh;
+  color: #eee;
+  background: url("../images/coffeegrindingprocess.0.jpeg");
+  background-size: cover;
+}
+/* line 7, ../../assets/compass/sass/views/_thankyou.scss */
+.thankyou h1 {
+  padding-top: 10%;
+}
