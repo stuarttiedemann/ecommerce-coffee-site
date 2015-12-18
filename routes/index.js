@@ -171,8 +171,9 @@ router.get('/delivery',function(req,res,next){
 				var newCity = doc.city ? doc.city:"";
 				var newState = doc.state ? doc.state:"";
 				var newZipCode = doc.zipcode ? doc.zipcode:"";
+				var newDate = doc.date ? doc.date:"";
 		//Render the choices view
-		res.render('delivery',{username:req.session.username, name:newName,address1:newAddress1,address2:newAddress2,city:newCity,state:newState,zipcode:newZipCode});
+		res.render('delivery',{username:req.session.username, name:newName,address1:newAddress1,address2:newAddress2,city:newCity,state:newState,zipcode:newZipCode,date:newDate});
 		});
 		
 	}else{
@@ -189,6 +190,7 @@ router.post('/delivery',function(req,res,next){
 		var newCity = req.body.city;
 		var newState = req.body.state;
 		var newZipCode = req.body.zipcode;
+		var newDate = req.body.date;
 		// console.log("The value of newPounds is:"+req.body.quarterPounds);
 		Account.findOneAndUpdate(
 			{username: req.session.username},
@@ -198,7 +200,8 @@ router.post('/delivery',function(req,res,next){
 			 address2:newAddress2,
 			 city:newCity,
 			 state:newState,
-			 zipcode:newZipCode
+			 zipcode:newZipCode,
+			 date:newDate
 			},
 			{upsert: true},
 			function (err,account){
@@ -234,6 +237,7 @@ router.get('/payment',function(req, res, next){
 				var newState = doc.state ? doc.state:"N/A";
 				var newZipCode = doc.zipcode ? doc.zipcode:"N/A";
 				var newOrderTotal = (doc.quarterPounds*19.99);
+				var newDate = doc.date ? doc.date:"N/A";
 				newOrderTotal = newOrderTotal.toFixed(2);
 				var newTotalWithShipping = (doc.quarterPounds*19.99)+7.99;
 				newTotalWithShipping = newTotalWithShipping.toFixed(2);
@@ -250,8 +254,8 @@ router.get('/payment',function(req, res, next){
 							  quarterPounds:newQuarterPounds,
 							  orderTotal:newOrderTotal,
 							  totalWithShipping:newTotalWithShipping,
-							  key:vars.key
-
+							  key:vars.key,
+							  date:newDate
 							});
 		});
 		
