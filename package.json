@@ -22,4 +22,7 @@
     "serve-favicon": "~2.3.0",
     "stripe": "^4.1.0"
   }
+  "engines":{
+    "node":"4.1.1"
+  }
 }
